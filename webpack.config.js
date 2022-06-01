@@ -10,18 +10,8 @@ module.exports = {
     entry: './src/script.js',
     module: {
         rules: [
-            {
-                test: /\.s?css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-            },
-            {
-                test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                    },
-                ],
-            },
+            { test: /\.s?css$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] },
+            { test: /\.(png|jpe?g|gif)$/i, type: 'asset/resource' }
         ],
     },
     output: {
