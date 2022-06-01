@@ -1,19 +1,21 @@
+import './style.scss';
+
 const n = 8;
 const GREEN = 1;
 const RED = 2;
 const DELAY_BETWEEN_PLAYERS = 500;
 
-var matrix = [];
-var historyData = [];
-var rememberPossibleMovesSingleField = [];
-var redIsOn = true;
-var blocked = false;
-var pointsGreen = 2;
-var pointsRed = 2;
-var countRounds = 0;
+let matrix = [];
+let historyData = [];
+let rememberPossibleMovesSingleField = [];
+let redIsOn = true;
+let blocked = false;
+let pointsGreen = 2;
+let pointsRed = 2;
+let countRounds = 0;
 
-var pointsGreenDiv = document.getElementById("points-green");
-var pointsRedDiv = document.getElementById("points-red");
+let pointsGreenDiv = document.getElementById("points-green");
+let pointsRedDiv = document.getElementById("points-red");
 
 const create2dArray = (rows, columns) =>
   [...Array(rows)].map(() => Array(columns).fill(null));
@@ -40,7 +42,7 @@ function initPanel() {
 }
 
 function initCockpit() {
-  this.initPlayerStats();
+  initPlayerStats();
 
   var cockpit = document.getElementById("cockpit");
   var cockpitButtons = cockpit.getElementsByTagName("button");
@@ -81,10 +83,10 @@ function initPlayerStats() {
 
   pointsGreen = 2;
   pointsRed = 2;
-  this.updatePoints();
+  updatePoints();
 
   countRounds = 0;
-  this.updateCounter();
+  updateCounter();
 }
 
 function resetPanel() {
@@ -130,13 +132,13 @@ function createField(i, j) {
   let child = document.createElement("div");
   child.id = `${i}${j}`;
 
-  // print i,j into fields
-  /*let coordString = i + "," + j;
-  let childContentDiv = document.createElement("div");
-  childContentDiv.classList.add("content");
-  let childTextNode = document.createTextNode(coordString);
-  childContentDiv.appendChild(childTextNode);
-  child.appendChild(childContentDiv);*/
+  // // print i,j into fields
+  // let coordString = i + "," + j;
+  // let childContentDiv = document.createElement("div");
+  // childContentDiv.classList.add("content");
+  // let childTextNode = document.createTextNode(coordString);
+  // childContentDiv.appendChild(childTextNode);
+  // child.appendChild(childContentDiv);
 
   if (matrix[i][j] === GREEN) {
     child.classList.add("green");
@@ -193,7 +195,7 @@ function toggleColor(element, i, j) {
     }
   }
 
-  this.updatePoints();
+  updatePoints();
   console.clear();
   console.table(matrix);
 }
@@ -217,7 +219,7 @@ async function checkAndMakeMove(i, j) {
           element.classList.add("marked");
         }
         rememberPossibleMovesSingleField = possibleMovesSingleField;
-      } 
+      }
     } else {
       console.log("No move possible here.");
     }
@@ -245,11 +247,11 @@ async function checkAndMakeMove(i, j) {
 
 async function makeBotMoveAndChangePlayer() {
   let possibleMoves = getPossibleMoves();
-  
+
   if (possibleMoves.length > 0) {
     // sort possible moves: longest paths are at the end of the array
     possibleMoves.sort();
-    
+
     // collect the longest possible moves in an array
     let longestPossibleMoves = [];
     let k = 1;
@@ -257,7 +259,7 @@ async function makeBotMoveAndChangePlayer() {
       longestPossibleMoves.push(possibleMoves[possibleMoves.length - k]);
       k++;
     }
-    
+
     // randomly choose one of the longest paths
     let chosenMove = longestPossibleMoves[Math.floor(Math.random() * longestPossibleMoves.length)];
     makeChosenMove(chosenMove);
@@ -434,15 +436,15 @@ function stepBack() {
       pointsGreen--;
       pointsRed++;
     }
-    this.updatePoints();
+    updatePoints();
   } else {
     console.log("No history data to go back to.");
   }
 }
 
 // start game board for the first time
-this.initPanel();
-this.initCockpit();
+initPanel();
+initCockpit();
 
 /* Helper methods */
 
