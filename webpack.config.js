@@ -37,7 +37,7 @@ module.exports = {
             background_color: '#FFFFFF',
             theme_color: '#cc2000',
             lang: 'en',
-            filename: './icons/manifest.json',
+            filename: 'manifest.json',
             icons: [
               {
                 src: path.resolve(__dirname, 'src/favicon.png'),
